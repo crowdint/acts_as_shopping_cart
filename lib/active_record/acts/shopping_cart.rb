@@ -11,14 +11,12 @@ module ActiveRecord
         end
       end
 
-      # module InstanceMethods
       def total
-        return 100
+        items.sum(:price)
       end
-      # end
 
-      def add(object)
-        items.create(:item => object)
+      def add(object, price = 0)
+        items.create(:item => object, :price => price)
       end
     end
   end

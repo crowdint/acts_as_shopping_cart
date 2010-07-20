@@ -11,12 +11,6 @@ module ActiveRecord
           belongs_to :item, :polymorphic => true
         end
       end
-      
-      module InstanceMethods
-        def total
-          return 100
-        end
-      end
     end
   end
 end
