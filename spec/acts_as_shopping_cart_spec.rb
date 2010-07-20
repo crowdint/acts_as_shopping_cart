@@ -59,7 +59,7 @@ describe "ActsAsShoppingCart" do
       @cart.should respond_to(:total)
     end
 
-    context "there are products on the cart" do
+    context "the cart has items" do
       before(:each) do
         @cart.add(Product.create(:name => "Product 1"), 199.99)
         @cart.add(Product.create(:name => "Product 2"), 299.99)
@@ -73,6 +73,20 @@ describe "ActsAsShoppingCart" do
     context "the cart has no item" do
       it "should return 0" do
         @cart.total == 0
+      end
+    end
+  end
+
+  describe :remove do
+    context "the cart has items" do
+      before(:each) do
+        @product = @cart.add(Product.create(:name => "Product 1"), 199.99)
+        @cart.add(Product.create(:name => "Product 2"), 299.99)
+      end
+      
+      it "removes the item from the cart" do
+        @cart.remove(@product)
+        @cart.items.count.should == 1
       end
     end
   end

@@ -18,6 +18,10 @@ module ActiveRecord
       def add(object, price = 0)
         items.create(:item => object, :price => price)
       end
+      
+      def remove(object)
+        items.delete(items.where(:item_id => object.id))
+      end
     end
   end
 end
