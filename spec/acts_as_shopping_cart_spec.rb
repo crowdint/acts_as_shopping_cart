@@ -1,13 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 class Cart < ActiveRecord::Base
-  include ActiveRecord::Acts::ShoppingCart
-
   acts_as_shopping_cart 'CartItem'
 end
 
 class CartItem < ActiveRecord::Base
-  include ActiveRecord::Acts::ShoppingCartItem
   acts_as_shopping_cart_item 'Cart'
 end
 

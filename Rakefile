@@ -1,12 +1,5 @@
 require 'rubygems'
 require 'rake'
-# gem 'rails', '>=3.0.0.beta4'
-
-# # require "active_support"
-# require "active_record"
-# require "active_model"
-# # require "action_controller"
-# require "rails/railtie"
 
 begin
   require 'jeweler'
