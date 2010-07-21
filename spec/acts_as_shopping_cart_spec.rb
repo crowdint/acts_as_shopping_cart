@@ -1,11 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-class Cart < ActiveRecord::Base
-  acts_as_shopping_cart 'CartItem'
+class SomeCart < ActiveRecord::Base
+  acts_as_shopping_cart 'SomeCartItem'
 end
 
-class CartItem < ActiveRecord::Base
-  acts_as_shopping_cart_item 'Cart'
+class SomeCartItem < ActiveRecord::Base
+  acts_as_shopping_cart_item 'SomeCart'
 end
 
 class Product < ActiveRecord::Base
@@ -15,7 +15,7 @@ end
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 
 ActiveRecord::Schema.define(:version => 1) do
-  create_table :carts do |t|
+  create_table :some_carts do |t|
 
   end
 
@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(:version => 1) do
     t.string :name
   end
 
-  create_table :cart_items do |t|
-    t.integer :cart_id
+  create_table :some_cart_items do |t|
+    t.integer :shopping_cart_id
     t.integer :quantity
     t.integer :item_id
     t.string :item_type
@@ -34,7 +34,7 @@ end
 
 describe "ActsAsShoppingCart" do
   before(:each) do
-    @cart = Cart.create
+    @cart = SomeCart.create
   end
 
   it "has many items" do

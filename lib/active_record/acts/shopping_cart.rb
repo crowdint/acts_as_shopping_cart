@@ -7,7 +7,7 @@ module ActiveRecord
 
       module ClassMethods
         def acts_as_shopping_cart(item_class_name)
-          has_many :cart_items, :class_name => item_class_name
+          has_many :cart_items, :class_name => item_class_name, :foreign_key => "shopping_cart_id"
         end
       end
 
