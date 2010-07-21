@@ -12,15 +12,34 @@ module ActiveRecord
       end
 
       def total
-        items.sum(:price)
+        items.sum("price * quantity").to_f
       end
 
-      def add(object, price = 0)
-        items.create(:item => object, :price => price)
+      def add(object, price, quantity = 1)
+        item = item_for(object)
+
+        unless item
+          items.create(:item => object, :price => price, :quantity => quantity)
+        else
+          item.quantity = (item.quantity + quantity)
+          item.save
+        end
       end
-      
-      def remove(object)
-        items.delete(items.where(:item_id => object.id))
+
+      def remove(object, quantity = 1)
+        item = item_for(object)
+        if item
+          if item.quantity <= quantity
+            items.delete(items.where(:item_id => object.id))
+          else
+            item.quantity = (item.quantity - quantity)
+            item.save
+          end
+        end
+      end
+
+      def item_for(object)
+        items.where(:item_id => object.id).first
       end
     end
   end
