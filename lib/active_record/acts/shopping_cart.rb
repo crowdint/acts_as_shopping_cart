@@ -7,7 +7,7 @@ module ActiveRecord
 
       module ClassMethods
         def acts_as_shopping_cart(item_class_name)
-          has_many :items, :class_name => 'CartItem'
+          has_many :items, :class_name => item_class_name
         end
       end
 
@@ -40,6 +40,10 @@ module ActiveRecord
 
       def item_for(object)
         items.where(:item_id => object.id).first
+      end
+      
+      def total_unique_items
+        items.sum(:quantity)
       end
     end
   end

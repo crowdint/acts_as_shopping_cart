@@ -3,18 +3,16 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 class Cart < ActiveRecord::Base
   include ActiveRecord::Acts::ShoppingCart
 
-  acts_as_shopping_cart 'Product'
+  acts_as_shopping_cart 'CartItem'
 end
 
 class CartItem < ActiveRecord::Base
   include ActiveRecord::Acts::ShoppingCartItem
-  acts_as_shopping_cart_item
+  acts_as_shopping_cart_item 'Cart'
 end
 
 class Product < ActiveRecord::Base
-  def price
-    100
-  end
+
 end
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
@@ -98,6 +96,7 @@ describe "ActsAsShoppingCart" do
       it "removes the item from the cart" do
         @cart.remove(@product)
         @cart.items.count.should == 1
+        @cart.item_for(@product).should be_nil
       end
     end
 
@@ -119,6 +118,26 @@ describe "ActsAsShoppingCart" do
       end
       it "does nothing" do
         @cart.remove(@product)
+      end
+    end
+    
+    describe :total_unique_items do
+      context "there are different items in the cart" do
+        before(:each) do
+          @cart.add(Product.create(:name => 'Product 1'), 100, 1)
+          @cart.add(Product.create(:name => 'Product 2'), 100, 2)
+          @cart.add(Product.create(:name => 'Product 3'), 100, 3)
+        end
+        
+        it "returns the sum of all the item quantities" do
+          @cart.total_unique_items.should == 6
+        end
+      end
+      
+      context "the cart has no items" do
+        it "returns 0" do
+          @cart.total_unique_items == 0
+        end
       end
     end
   end
