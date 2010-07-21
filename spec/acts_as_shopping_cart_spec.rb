@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(:version => 1) do
   end
 
   create_table :products do |t|
-    t.string :name
+
   end
 
   create_table :some_cart_items do |t|
@@ -43,7 +43,7 @@ describe "ActsAsShoppingCart" do
 
   describe :add do
     it "adds an item" do
-      @product = Product.create(:name => 'Product 1')
+      @product = Product.create
       @cart.add(@product, 100)
       @cart.cart_items(true).first.should_not be_nil
       @cart.cart_items(true).first.item.should == @product
@@ -51,7 +51,7 @@ describe "ActsAsShoppingCart" do
 
     context "add more of an item already in the cart" do
       it "increases the quantity of the item" do
-        @product = Product.create(:name => 'Product 1')
+        @product = Product.create
         @cart.add(@product, 100)
         @cart.add(@product, 100, 2)
 
@@ -67,8 +67,8 @@ describe "ActsAsShoppingCart" do
 
     context "the cart has items" do
       before(:each) do
-        @cart.add(Product.create(:name => "Product 1"), 199.99, 2)
-        @cart.add(Product.create(:name => "Product 2"), 299.99)
+        @cart.add(Product.create, 199.99, 2)
+        @cart.add(Product.create, 299.99)
       end
 
       it "should return the sum of the item prices" do
@@ -86,8 +86,8 @@ describe "ActsAsShoppingCart" do
   describe :remove do
     context "the cart has items" do
       before(:each) do
-        @product = @cart.add(Product.create(:name => "Product 1"), 199.99)
-        @cart.add(Product.create(:name => "Product 2"), 299.99)
+        @product = @cart.add(Product.create, 199.99)
+        @cart.add(Product.create, 299.99)
       end
 
       it "removes the item from the cart" do
@@ -99,8 +99,8 @@ describe "ActsAsShoppingCart" do
 
     context "remove some items" do
       before(:each) do
-        @product = @cart.add(Product.create(:name => "Product 1"), 199.99, 5)
-        @cart.add(Product.create(:name => "Product 2"), 299.99)
+        @product = @cart.add(Product.create, 199.99, 5)
+        @cart.add(Product.create, 299.99)
       end
 
       it "removes 2 items of the specific product" do
@@ -111,7 +111,7 @@ describe "ActsAsShoppingCart" do
 
     context "the object is not on the cart" do
       before(:each) do
-        @product = Product.create(:name => "Product 1")
+        @product = Product.create
       end
       it "does nothing" do
         @cart.remove(@product)
@@ -121,9 +121,9 @@ describe "ActsAsShoppingCart" do
     describe :total_unique_items do
       context "there are different items in the cart" do
         before(:each) do
-          @cart.add(Product.create(:name => 'Product 1'), 100, 1)
-          @cart.add(Product.create(:name => 'Product 2'), 100, 2)
-          @cart.add(Product.create(:name => 'Product 3'), 100, 3)
+          @cart.add(Product.create, 100, 1)
+          @cart.add(Product.create, 100, 2)
+          @cart.add(Product.create, 100, 3)
         end
         
         it "returns the sum of all the item quantities" do
