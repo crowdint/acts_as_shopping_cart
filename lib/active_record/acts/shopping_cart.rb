@@ -46,6 +46,13 @@ module ActiveRecord
         def total_unique_items
           cart_items.sum(:quantity)
         end
+
+        def subtotal_for(object)
+          item = item_for(object)
+          if item
+            item.quantity * item.price
+          end
+        end
       end
     end
   end

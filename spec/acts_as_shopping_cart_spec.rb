@@ -117,7 +117,7 @@ describe "ActsAsShoppingCart" do
         @cart.remove(@product)
       end
     end
-    
+
     describe :total_unique_items do
       context "there are different items in the cart" do
         before(:each) do
@@ -125,15 +125,35 @@ describe "ActsAsShoppingCart" do
           @cart.add(Product.create, 100, 2)
           @cart.add(Product.create, 100, 3)
         end
-        
+
         it "returns the sum of all the item quantities" do
           @cart.total_unique_items.should == 6
         end
       end
-      
+
       context "the cart has no items" do
         it "returns 0" do
           @cart.total_unique_items == 0
+        end
+      end
+    end
+
+    describe :subtotal_for do
+      context "the item exists in the cart" do
+        before(:each) do
+          @product = Product.create
+          @cart.add(@product, 300, 5)
+          @cart.add(Product.create, 100, 3)
+        end
+
+        it "returns the quantity times the price for the specicfied object" do
+          @cart.subtotal_for(@product).should == (300 * 5)
+        end
+      end
+      
+      context "the item doesn't exist on the cart" do
+        it "returns nil" do
+          @cart.subtotal_for(Product.create).should be_nil
         end
       end
     end
