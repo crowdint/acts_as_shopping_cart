@@ -41,15 +41,15 @@ describe "ActsAsShoppingCart" do
   end
 
   it "has many items" do
-    @cart.should respond_to(:items)
+    @cart.should respond_to(:cart_items)
   end
 
   describe :add do
     it "adds an item" do
       @product = Product.create(:name => 'Product 1')
       @cart.add(@product, 100)
-      @cart.items(true).first.should_not be_nil
-      @cart.items(true).first.item.should == @product
+      @cart.cart_items(true).first.should_not be_nil
+      @cart.cart_items(true).first.item.should == @product
     end
 
     context "add more of an item already in the cart" do
@@ -58,7 +58,7 @@ describe "ActsAsShoppingCart" do
         @cart.add(@product, 100)
         @cart.add(@product, 100, 2)
 
-        @cart.items.first.quantity.should == 3
+        @cart.cart_items.first.quantity.should == 3
       end
     end
   end
@@ -95,7 +95,7 @@ describe "ActsAsShoppingCart" do
 
       it "removes the item from the cart" do
         @cart.remove(@product)
-        @cart.items.count.should == 1
+        @cart.cart_items.count.should == 1
         @cart.item_for(@product).should be_nil
       end
     end
