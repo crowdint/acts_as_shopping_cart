@@ -23,8 +23,10 @@ Gem::Specification.new do |s|
      "README.markdown",
      "Rakefile",
      "VERSION",
+     "acts_as_shopping_cart.gemspec",
      "lib/active_record/acts/shopping_cart.rb",
      "lib/active_record/acts/shopping_cart_item.rb",
+     "lib/acts_as_shopping_cart.rb",
      "spec/acts_as_shopping_cart_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
