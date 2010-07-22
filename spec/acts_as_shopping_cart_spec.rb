@@ -39,6 +39,11 @@ describe "ActsAsShoppingCart" do
 
   it "has many items" do
     @cart.should respond_to(:cart_items)
+    something = SomeClass.create
+    
+    @cart.should respond_to(:remove)
+    # Test to ensure that any other class doesn't have the methods
+    something.should_not respond_to(:remove)
   end
 
   describe :item_for do

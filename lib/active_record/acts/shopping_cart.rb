@@ -6,7 +6,18 @@ module ActiveRecord
       end
 
       module ClassMethods
+        #
+        # Prepares the class to act as a cart.
+        #
+        # Receives as a parameter the name of the class that will hold the items
+        # 
+        # Example:
+        #
+        #   acts_as_shopping_cart 'CartItem'
+        #
+        #
         def acts_as_shopping_cart(item_class_name)
+          self.send :include, ActiveRecord::Acts::ShoppingCart::InstanceMethods
           has_many :cart_items, :class_name => item_class_name, :foreign_key => "shopping_cart_id"
         end
       end
