@@ -83,6 +83,22 @@ module ActiveRecord
             item.quantity * item.price
           end
         end
+
+        #
+        # Returns the quantity of the specified object
+        #
+        def quantity_for(object)
+          item = item_for(object)
+          item ? item.quantity : 0
+        end
+
+        #
+        # Returns the price of the specified object
+        #
+        def price_for(object)
+          item = item_for(object)
+          item ? item.price : 0
+        end
       end
     end
   end
