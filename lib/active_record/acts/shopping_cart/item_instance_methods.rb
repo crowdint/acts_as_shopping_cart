@@ -31,10 +31,10 @@ module ActiveRecord
         #
         # Updates the quantity of the specified object
         #
-        def update_quantity_for(object, quantity)
+        def update_quantity_for(object, new_quantity)
           item = item_for(object)
           if item
-            item.quantity = quantity
+            item.quantity = new_quantity
             item.save
           end
         end
@@ -45,6 +45,17 @@ module ActiveRecord
         def price_for(object)
           item = item_for(object)
           item ? item.price : 0
+        end
+
+        #
+        # Updates the price of the specified object
+        #
+        def update_price_for(object, new_price)
+          item = item_for(object)
+          if item
+            item.price = new_price
+            item.save
+          end
         end
       end
     end

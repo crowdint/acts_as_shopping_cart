@@ -62,7 +62,7 @@ describe "ShoppingCart" do
         end
       end
     end
-    
+
     describe :update_quantity_for do
       context "the item is in the cart" do
         before(:each) do
@@ -98,6 +98,26 @@ describe "ShoppingCart" do
       context "the item is not on the cart" do
         it "returns 0" do
           @cart.price_for(SomeClass.create).should == 0
+        end
+      end
+    end
+
+    describe :update_price_for do
+      context "the item is in the cart" do
+        before(:each) do
+          @some_object = SomeClass.create
+          @cart.add(@some_object, 100, 5)
+        end
+
+        it "returns the quantity of the specified object" do
+          @cart.update_price_for(@some_object, 39.99)
+          @cart.price_for(@some_object).should == 39.99
+        end
+      end
+
+      context "the item is not on the cart" do
+        it "deos nothing" do
+          @cart.update_price_for(SomeClass.create, 39.99)
         end
       end
     end
