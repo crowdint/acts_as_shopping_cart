@@ -41,6 +41,26 @@ describe "ActsAsShoppingCart" do
     @cart.should respond_to(:cart_items)
   end
 
+  describe :item_for do
+    context "the item is in the cart" do
+      before(:each) do
+        @product = Product.create
+        @cart.add(@product, 1)
+      end
+
+      it "returns the item object" do
+        @cart.item_for(@product).item.should == @product
+      end
+    end
+
+    context "the item is not on the cart" do
+      it "returns nil" do
+        product = Product.create
+        @cart.item_for(product).should be_nil
+      end
+    end
+  end
+
   describe :add do
     it "adds an item" do
       @product = Product.create
@@ -86,7 +106,8 @@ describe "ActsAsShoppingCart" do
   describe :remove do
     context "the cart has items" do
       before(:each) do
-        @product = @cart.add(Product.create, 199.99)
+        @product = Product.create
+        @cart.add(@product, 199.99)
         @cart.add(Product.create, 299.99)
       end
 
@@ -99,12 +120,14 @@ describe "ActsAsShoppingCart" do
 
     context "remove some items" do
       before(:each) do
-        @product = @cart.add(Product.create, 199.99, 5)
+        @product = Product.create
+        @cart.add(@product, 199.99, 5)
         @cart.add(Product.create, 299.99)
       end
 
       it "removes 2 items of the specific product" do
         @cart.remove(@product, 2)
+        @cart.item_for(@product).should_not be_nil
         @cart.item_for(@product).quantity.should == 3
       end
     end
@@ -150,7 +173,7 @@ describe "ActsAsShoppingCart" do
           @cart.subtotal_for(@product).should == (300 * 5)
         end
       end
-      
+
       context "the item doesn't exist on the cart" do
         it "returns nil" do
           @cart.subtotal_for(Product.create).should be_nil
