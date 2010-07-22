@@ -29,6 +29,17 @@ module ActiveRecord
         end
 
         #
+        # Updates the quantity of the specified object
+        #
+        def update_quantity_for(object, quantity)
+          item = item_for(object)
+          if item
+            item.quantity = quantity
+            item.save
+          end
+        end
+
+        #
         # Returns the price of the specified object
         #
         def price_for(object)
