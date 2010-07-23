@@ -25,14 +25,14 @@ You can use any name for the models, you just have to let each model know about 
 For the Shopping Cart:
 
     class Cart < ActiveRecord::Base
-      acts_as_shopping_cart :cart_item
+      acts_as_shopping_cart_using :cart_item
     end
 
 
 For the items:
 
     class CartItem < ActiveRecord::Base
-      acts_as_shopping_cart_item :cart
+      acts_as_shopping_cart_item_for :cart
     end
 
 ### Migrations
