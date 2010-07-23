@@ -7,18 +7,18 @@ require 'rubygems'
 require 'acts_as_shopping_cart'
 
 Spec::Runner.configure do |config|
-  
+
 end
 
 #
 # Required environment for the tests
 #
 class SomeCart < ActiveRecord::Base
-  acts_as_shopping_cart :some_cart_item
+  acts_as_shopping_cart_using :some_cart_item
 end
 
 class SomeCartItem < ActiveRecord::Base
-  acts_as_shopping_cart_item :some_cart
+  acts_as_shopping_cart_item_for :some_cart
 end
 
 class SomeClass < ActiveRecord::Base
