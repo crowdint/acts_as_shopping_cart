@@ -14,11 +14,11 @@ end
 # Required environment for the tests
 #
 class SomeCart < ActiveRecord::Base
-  acts_as_shopping_cart 'SomeCartItem'
+  acts_as_shopping_cart :some_cart_item
 end
 
 class SomeCartItem < ActiveRecord::Base
-  acts_as_shopping_cart_item 'SomeCart'
+  acts_as_shopping_cart_item :some_cart
 end
 
 class SomeClass < ActiveRecord::Base

@@ -6,8 +6,8 @@ module ActiveRecord
       end
 
       module ClassMethods
-        def acts_as_shopping_cart_item(cart_class_name)
-          belongs_to :shopping_cart, :class_name => cart_class_name
+        def acts_as_shopping_cart_item(cart_class)
+          belongs_to :shopping_cart, :class_name => cart_class.to_s.classify
           belongs_to :item, :polymorphic => true
         end
       end
