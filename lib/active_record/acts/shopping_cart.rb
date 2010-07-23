@@ -21,7 +21,14 @@ module ActiveRecord
           has_many :cart_items, :class_name => item_class.to_s.classify, :foreign_key => "shopping_cart_id"
         end
 
-        alias_method :acts_as_shopping_cart, :acts_as_shopping_cart_using
+        #
+        # Alias for:
+        #
+        #    acts_as_shopping_cart_using :shopping_cart
+        #
+        def acts_as_shopping_cart
+          acts_as_shopping_cart_using :shopping_cart_items
+        end
       end
     end
   end

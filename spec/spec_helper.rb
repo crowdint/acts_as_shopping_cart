@@ -21,6 +21,14 @@ class SomeCartItem < ActiveRecord::Base
   acts_as_shopping_cart_item_for :some_cart
 end
 
+class ShoppingCart < ActiveRecord::Base
+  acts_as_shopping_cart
+end
+
+class ShoppingCartItem < ActiveRecord::Base
+  acts_as_shopping_cart_item
+end
+
 class SomeClass < ActiveRecord::Base
 
 end

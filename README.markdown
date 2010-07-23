@@ -35,6 +35,17 @@ For the items:
       acts_as_shopping_cart_item_for :cart
     end
 
+or, if you want to use convention over configuration, make sure your models are called *ShoppingCart* and *ShoppingCartItems*, 
+then just use the shortcuts:
+
+    class ShoppingCart < ActiveRecord::Base
+      acts_as_shopping_cart
+    end
+
+    class ShoppingCartItem < ActiveRecord::Base
+      acts_as_shopping_cart_item
+    end
+
 ### Migrations
 
 In order for this to work, the Shopping Cart Item model should have the following fields:
@@ -43,7 +54,7 @@ In order for this to work, the Shopping Cart Item model should have the followin
         t.integer :shopping_cart_id   # Holds the association with the cart
         t.integer :quantity           # Holds the quantity of the object
         t.integer :item_id            # Holds the object id
-        t.string :item_type           # Holds the type of teh object, for polymorphism
+        t.string :item_type           # Holds the type of the object, for polymorphism
         t.float :price                # Holds the price of the item
     end
 

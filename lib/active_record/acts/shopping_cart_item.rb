@@ -21,7 +21,14 @@ module ActiveRecord
           belongs_to :item, :polymorphic => true
         end
 
-        alias_method :acts_as_shopping_cart_item, :acts_as_shopping_cart_item_for
+        #
+        # Alias for:
+        #
+        #   acts_as_shopping_cart_item_for :shopping_cart_items
+        #
+        def acts_as_shopping_cart_item
+          acts_as_shopping_cart_item_for :shopping_cart
+        end
       end
     end
   end
