@@ -24,7 +24,7 @@ module ActiveRecord
         #
         # Alias for:
         #
-        #   acts_as_shopping_cart_item_for :shopping_cart_items
+        #   acts_as_shopping_cart_item_for :shopping_cart
         #
         def acts_as_shopping_cart_item
           acts_as_shopping_cart_item_for :shopping_cart

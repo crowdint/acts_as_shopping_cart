@@ -24,10 +24,10 @@ module ActiveRecord
         #
         # Alias for:
         #
-        #    acts_as_shopping_cart_using :shopping_cart
+        #    acts_as_shopping_cart_using :shopping_cart_item
         #
         def acts_as_shopping_cart
-          acts_as_shopping_cart_using :shopping_cart_items
+          acts_as_shopping_cart_using :shopping_cart_item
         end
       end
     end
