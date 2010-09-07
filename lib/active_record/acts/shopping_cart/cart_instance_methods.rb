@@ -24,6 +24,14 @@ module ActiveRecord
         end
 
         #
+        # Delete an item from the cart
+        #
+        def delete(object)
+          cart_item = item_for(object)
+          cart_items.delete(cart_item)
+        end
+
+        #
         # Remove an item from the cart
         #
         def remove(object, quantity = 1)
@@ -48,3 +56,4 @@ module ActiveRecord
     end
   end
 end
+
