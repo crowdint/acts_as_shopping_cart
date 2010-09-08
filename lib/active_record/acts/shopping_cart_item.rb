@@ -17,6 +17,7 @@ module ActiveRecord
         #
         #
         def acts_as_shopping_cart_item_for(cart_class)
+          self.send :include, ActiveRecord::Acts::ShoppingCartItem::InstanceMethods
           belongs_to :shopping_cart, :class_name => cart_class.to_s.classify
           belongs_to :item, :polymorphic => true
         end

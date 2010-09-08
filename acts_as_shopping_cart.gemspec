@@ -9,24 +9,33 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Padilla"]
-  s.date = %q{2010-07-22}
+  s.date = %q{2010-09-08}
   s.description = %q{A simple shopping cart implementation}
   s.email = %q{david.padilla@crowdint.com}
   s.extra_rdoc_files = [
     "LICENSE",
+     "README",
      "README.markdown"
   ]
   s.files = [
     ".document",
      ".gitignore",
+     "Gemfile",
+     "Gemfile.lock",
      "LICENSE",
      "README.markdown",
      "Rakefile",
      "VERSION",
      "acts_as_shopping_cart.gemspec",
      "lib/active_record/acts/shopping_cart.rb",
+     "lib/active_record/acts/shopping_cart/cart_instance_methods.rb",
+     "lib/active_record/acts/shopping_cart/item_instance_methods.rb",
      "lib/active_record/acts/shopping_cart_item.rb",
+     "lib/active_record/acts/shopping_cart_item/cart_item_instance_methods.rb",
      "lib/acts_as_shopping_cart.rb",
+     "spec/active_record/acts/shopping_cart/cart_instance_methods_spec.rb",
+     "spec/active_record/acts/shopping_cart/cart_item_instance_methods_spec.rb",
+     "spec/active_record/acts/shopping_cart/item_instance_methods_spec.rb",
      "spec/acts_as_shopping_cart_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
@@ -37,7 +46,10 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{A simple shopping cart implementation}
   s.test_files = [
-    "spec/acts_as_shopping_cart_spec.rb",
+    "spec/active_record/acts/shopping_cart/cart_instance_methods_spec.rb",
+     "spec/active_record/acts/shopping_cart/cart_item_instance_methods_spec.rb",
+     "spec/active_record/acts/shopping_cart/item_instance_methods_spec.rb",
+     "spec/acts_as_shopping_cart_spec.rb",
      "spec/spec_helper.rb"
   ]
 

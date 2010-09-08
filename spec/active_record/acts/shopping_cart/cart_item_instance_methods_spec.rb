@@ -17,9 +17,16 @@ describe "ShoppingCart" do
   end
 
   describe :update_quantity do
+    before(:each) do
+      @cart.cart_items[0].update_quantity(6)
+      @cart.cart_items[1].update_quantity(9)
+      @cart.cart_items[2].update_quantity(12)
+    end
+    
     it "returns the quantity of the specified object" do
-      @cart.update_quantity_for(@some_object, 7)
-      @cart.quantity_for(@some_object).should == 7
+      @cart.cart_items[0].quantity.should == (6)
+      @cart.cart_items[1].quantity.should == (9)
+      @cart.cart_items[2].quantity.should == (12)
     end
   end  
 end
