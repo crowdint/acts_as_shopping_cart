@@ -47,6 +47,22 @@ describe "ShoppingCart" do
     end
   end
 
+  describe :delete do
+    context "the cart has items" do
+      before(:each) do
+        @some_object = SomeClass.create
+        @cart.add(@some_object, 199.99)
+        @cart.add(SomeClass.create, 299.99)
+      end
+
+      it "removes the item from the cart" do
+        @cart.remove(@some_object)
+        @cart.cart_items.count.should == 1
+        @cart.item_for(@some_object).should be_nil
+      end
+    end
+  end
+
   describe :remove do
     context "the cart has items" do
       before(:each) do
@@ -106,3 +122,4 @@ describe "ShoppingCart" do
     end
   end
 end
+
