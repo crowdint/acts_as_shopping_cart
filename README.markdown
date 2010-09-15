@@ -51,7 +51,8 @@ then just use the shortcuts:
 In order for this to work, the Shopping Cart Item model should have the following fields:
 
     create_table :cart_items do |t|
-        t.integer :shopping_cart_id   # Holds the association with the cart
+        t.integer :owner_id           # Holds the owner id, for polymorphism
+        t.integer :owner_type         # Holds the type of the owner, for polymorphism
         t.integer :quantity           # Holds the quantity of the object
         t.integer :item_id            # Holds the object id
         t.string :item_type           # Holds the type of the object, for polymorphism

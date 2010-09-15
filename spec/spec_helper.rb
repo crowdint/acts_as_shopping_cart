@@ -45,7 +45,8 @@ ActiveRecord::Schema.define(:version => 1) do
   end
 
   create_table :some_cart_items do |t|
-    t.integer :shopping_cart_id
+    t.integer :owner_id
+    t.string :owner_type
     t.integer :quantity
     t.integer :item_id
     t.string :item_type
