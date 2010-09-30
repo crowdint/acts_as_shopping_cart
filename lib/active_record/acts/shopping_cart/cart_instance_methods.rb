@@ -15,14 +15,14 @@ module ActiveRecord
         # Returns the subtotal by summing the price times quantity for all the items in the cart
         #
         def subtotal
-          ("%.20f" % cart_items.sum("price * quantity")).to_f
+          cart_items.sum("price * quantity").to_f
         end
         
         #
         # Returns the total by summing the subtotal, taxes and shipping_cost
         #
         def total
-          ("%.20f" % (subtotal + @taxes + @shipping_cost)).to_f
+          subtotal + @taxes + @shipping_cost
         end
 
         #
