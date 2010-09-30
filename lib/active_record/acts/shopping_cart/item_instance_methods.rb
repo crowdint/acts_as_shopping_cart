@@ -2,7 +2,6 @@ module ActiveRecord
   module Acts
     module ShoppingCart
       module InstanceMethods
-        
         #
         # Returns the cart item for the specified object
         #
