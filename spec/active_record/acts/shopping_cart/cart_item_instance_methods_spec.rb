@@ -29,4 +29,18 @@ describe "ShoppingCart" do
       @cart.cart_items[2].quantity.should == (12)
     end
   end  
+  
+  describe :update_price do
+    before(:each) do
+      @cart.cart_items[0].update_price(50)
+      @cart.cart_items[1].update_price(100)
+      @cart.cart_items[2].update_price(150)
+    end
+    
+    it "returns the quantity of the specified object" do
+      @cart.cart_items[0].price.should == (50)
+      @cart.cart_items[1].price.should == (100)
+      @cart.cart_items[2].price.should == (150)
+    end
+  end
 end
