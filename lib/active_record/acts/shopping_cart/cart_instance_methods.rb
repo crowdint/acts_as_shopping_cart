@@ -2,27 +2,19 @@ module ActiveRecord
   module Acts
     module ShoppingCart
       module InstanceMethods
-        attr_accessor :taxes
-        attr_accessor :shipping_cost
-        
-        def initialize(attributes = nil)
-          @taxes = 0
-          @shipping_cost = 0
-          super(attributes)
-        end
         
         #
         # Returns the subtotal by summing the price times quantity for all the items in the cart
         #
         def subtotal
-          cart_items.sum("price * quantity").to_f
+          ("%.2f" % cart_items.sum("price * quantity")).to_f
         end
         
         #
         # Returns the total by summing the subtotal, taxes and shipping_cost
         #
         def total
-          subtotal + @taxes + @shipping_cost
+          ("%.2f" % (subtotal + self.taxes + shipping_cost)).to_f
         end
 
         #

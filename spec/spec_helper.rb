@@ -37,7 +37,8 @@ ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":me
 
 ActiveRecord::Schema.define(:version => 1) do
   create_table :some_carts do |t|
-
+    t.float :taxes, :default => 0
+    t.float :shipping_cost, :default => 0
   end
 
   create_table :some_classes do |t|
