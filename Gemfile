@@ -5,4 +5,4 @@ gem 'jeweler'
 gem 'rspec', '1.3.0'
 gem 'rails', '3.0.0.rc2'
 
-gem 'mysql'
+gem 'sqlite3-ruby'
