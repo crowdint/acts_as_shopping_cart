@@ -1,8 +1,4 @@
-# A sample Gemfile
-source :gemcutter
-#
-gem 'jeweler'
-gem 'rspec', '1.3.0'
-gem 'rails', '3.0.0.rc2'
+source "http://rubygems.org"
 
-gem 'sqlite3-ruby'
+# Specify your gem's dependencies in acts_as_shopping_cart.gemspec
+gemspec
