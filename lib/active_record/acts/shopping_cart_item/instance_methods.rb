@@ -4,7 +4,7 @@ module ActiveRecord
       module InstanceMethods
         #
         # Returns the subtotal, multiplying the quantity times the price of the item.
-        #
+        # 
         def subtotal
           self.quantity * self.price
         end
@@ -16,7 +16,7 @@ module ActiveRecord
             self.quantity = new_quantity
             self.save
         end
-
+        
         #
         # Updates the price of the item
         #

@@ -10,14 +10,15 @@ module ActiveRecord
         # Prepares the class to act as a cart.
         #
         # Receives as a parameter the name of the class that will hold the items
-        # 
+        #
         # Example:
         #
         #   acts_as_shopping_cart :cart_item
         #
         #
         def acts_as_shopping_cart_using(item_class)
-          self.send :include, ActiveRecord::Acts::ShoppingCart::InstanceMethods
+          self.send :include, ActiveRecord::Acts::ShoppingCart::Cart::InstanceMethods
+          self.send :include, ActiveRecord::Acts::ShoppingCart::Item::InstanceMethods
           has_many :cart_items, :class_name => item_class.to_s.classify, :as => :owner
         end
 

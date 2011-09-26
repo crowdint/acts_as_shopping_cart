@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '../../../../spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '../../../../../spec_helper')
 
 describe "ShoppingCart" do
   before(:each) do
@@ -46,7 +46,7 @@ describe "ShoppingCart" do
       end
     end
   end
-  
+
   describe :total do
     it "has a total" do
       @cart.should respond_to(:total)
@@ -57,40 +57,40 @@ describe "ShoppingCart" do
         @cart.add(SomeClass.create, 199.99, 2)
         @cart.add(SomeClass.create, 299.99)
       end
-      
+
       context "the cart has taxes"  do
         before(:each) do
           @cart.taxes = 12.99
         end
-      
+
         context "the cart has shipping cost" do
           before(:each) do
             @cart.shipping_cost = 3.99
           end
-          
+
           it "should return the sum of the item prices, taxes and shipping cost" do
             @cart.total.should == 716.95
           end
         end
-        
+
         context "the cart hasn't shipping cost" do
           it "should return the sum of the item prices and taxes" do
             @cart.total.should == 712.96
           end
         end
       end
-      
+
       context "the cart hasn't taxes" do
         context "the cart has shipping cost" do
           before(:each) do
             @cart.shipping_cost = 3.99
           end
-          
+
           it "should return the sum of item prices and shipping cost" do
             @cart.total.should == 703.96
           end
         end
-        
+
         context "the cart hasn't shipping cost" do
           it "should return the sum of the item prices" do
             @cart.total.should == 699.97
@@ -104,56 +104,40 @@ describe "ShoppingCart" do
         before(:each) do
           @cart.taxes = 12.99
         end
-      
+
         context "the cart has shipping cost" do
           before(:each) do
             @cart.shipping_cost = 3.99
           end
-          
+
           it "should return the sum of the item prices, taxes and shipping cost" do
             @cart.total.should == 16.98
           end
         end
-        
+
         context "the cart hasn't shipping cost" do
           it "should return the sum of the item prices and taxes" do
             @cart.total.should == 12.99
           end
         end
       end
-      
+
       context "the cart hasn't taxes" do
         context "the cart has shipping cost" do
           before(:each) do
             @cart.shipping_cost = 3.99
           end
-          
+
           it "should return the sum of item prices and shipping cost" do
             @cart.total.should == 3.99
           end
         end
-        
+
         context "the cart hasn't shipping cost" do
           it "should return 0" do
             @cart.total == 0
           end
         end
-      end
-    end
-  end
-
-  describe :delete do
-    context "the cart has items" do
-      before(:each) do
-        @some_object = SomeClass.create
-        @cart.add(@some_object, 199.99)
-        @cart.add(SomeClass.create, 299.99)
-      end
-
-      it "removes the item from the cart" do
-        @cart.remove(@some_object)
-        @cart.cart_items.count.should == 1
-        @cart.item_for(@some_object).should be_nil
       end
     end
   end
