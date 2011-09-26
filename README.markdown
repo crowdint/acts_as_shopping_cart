@@ -9,11 +9,11 @@ A simple shopping cart implementation. Still on Alpha, use it at your own risk.
 Include it in your Gemfile
 
     gem 'acts_as_shopping_cart', :git => "git@github.com:crowdint/acts_as_shopping_cart.git"
-    
+
 And run bundler
 
     bundle install
-    
+
 ## Usage
 
 You need two models, one to hold the Shopping Carts and another to hold the Items
@@ -35,7 +35,7 @@ For the items:
       acts_as_shopping_cart_item_for :cart
     end
 
-or, if you want to use convention over configuration, make sure your models are called *ShoppingCart* and *ShoppingCartItems*, 
+or, if you want to use convention over configuration, make sure your models are called *ShoppingCart* and *ShoppingCartItems*,
 then just use the shortcuts:
 
     class ShoppingCart < ActiveRecord::Base
@@ -67,9 +67,9 @@ So, if you had a Product class, you would do something like this:
 
     @cart = Cart.create
     @product = Product.find(1)
-    
+
     @cart.add(@product, 99.99)
-    
+
 In the case where your product has a price field you could do something like:
 
     @cart.add(@product, @product.price)
@@ -101,10 +101,22 @@ You can find out how many unique items you have on your cart using the _total_un
 So, if you had something like:
 
     @cart.add(@product, 99.99, 5)
-    
+
 Then,
 
     @cart.total_unique_items # => 5
+
+## Development
+
+Install the dependencies
+
+    bundle install
+
+### Test
+
+Run rspec
+
+    rspec spec
 
 ## TODO
 
