@@ -5,13 +5,11 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 # require 'rubygems'
 #
 require 'rubygems'
+require 'bundler/setup'
+
 require 'active_record'
 
 require 'acts_as_shopping_cart'
-
-Spec::Runner.configure do |config|
-
-end
 
 #
 # Required environment for the tests
@@ -57,3 +55,8 @@ ActiveRecord::Schema.define(:version => 1) do
     t.float :price
   end
 end
+
+RSpec.configure do |config|
+
+end
+
