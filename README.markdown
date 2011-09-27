@@ -160,8 +160,12 @@ Run rspec
 
     rspec spec
 
-## TODO
+Run cucumber features
 
-* Finish this document
-* Test it on Rails 2
-* Some more useful methods, like @cart.quantity_for(@product), @cart.price_for(@product)
+    bundle exec cucumber
+
+# About the Author
+
+[Crowd Interactive](http://www.crowdint.com) is an American web design and development company that happens to work in Colima, Mexico.
+We specialize in building and growing online retail stores. We don’t work with everyone – just companies we believe in. Call us today to see if there’s a fit.
+Find more info [here](http://www.crowdint.com)!
