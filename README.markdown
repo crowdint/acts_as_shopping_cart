@@ -159,6 +159,10 @@ Run cucumber features
 
     cucumber
 
+Both:
+
+    rake
+
 # About the Author
 
 [Crowd Interactive](http://www.crowdint.com) is an American web design and development company that happens to work in Colima, Mexico.
