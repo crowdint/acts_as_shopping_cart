@@ -3,21 +3,6 @@ module ActiveRecord
     module ShoppingCart
       module Cart
         module InstanceMethods
-
-          #
-          # Returns the subtotal by summing the price times quantity for all the items in the cart
-          #
-          def subtotal
-            ("%.2f" % cart_items.sum("price * quantity")).to_f
-          end
-
-          #
-          # Returns the total by summing the subtotal, taxes and shipping_cost
-          #
-          def total
-            ("%.2f" % (subtotal + self.taxes + shipping_cost)).to_f
-          end
-
           #
           # Adds a product to the cart
           #
@@ -36,10 +21,9 @@ module ActiveRecord
           # Remove an item from the cart
           #
           def remove(object, quantity = 1)
-            cart_item = item_for(object)
-            if cart_item
+            if cart_item = item_for(object)
               if cart_item.quantity <= quantity
-                cart_items.delete(cart_item)
+								cart_item.delete
               else
                 cart_item.quantity = (cart_item.quantity - quantity)
                 cart_item.save
@@ -48,10 +32,36 @@ module ActiveRecord
           end
 
           #
+          # Returns the subtotal by summing the price times quantity for all the items in the cart
+          #
+          def subtotal
+						("%.2f" % cart_items.inject(0) { |sum, item| sum += (item.price * item.quantity) }).to_f
+          end
+
+					def shipping_cost
+						0
+					end
+
+					def taxes
+						subtotal * self.tax_pct * 0.01
+					end
+
+					def tax_pct
+						8.25
+					end
+
+          #
+          # Returns the total by summing the subtotal, taxes and shipping_cost
+          #
+          def total
+            ("%.2f" % (self.subtotal + self.taxes + self.shipping_cost)).to_f
+          end
+
+          #
           # Return the number of unique items in the cart
           #
           def total_unique_items
-            cart_items.sum(:quantity)
+            cart_items.inject(0) { |sum, item| sum += item.quantity }
           end
         end
       end

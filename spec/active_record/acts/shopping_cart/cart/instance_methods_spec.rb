@@ -1,204 +1,155 @@
 require File.expand_path(File.dirname(__FILE__) + '../../../../../spec_helper')
+# require 'spec_helper'
 
-describe "ShoppingCart" do
-  before(:each) do
-    @cart = SomeCart.create
-  end
+describe ActiveRecord::Acts::ShoppingCart::Cart::InstanceMethods do
+	let(:klass) do
+		klass = Class.new
+		klass.send(:include, ActiveRecord::Acts::ShoppingCart::Cart::InstanceMethods)
+	end
 
-  describe :add do
-    it "adds an item" do
-      @some_object = SomeClass.create
-      @cart.add(@some_object, 100)
-      @cart.cart_items(true).first.should_not be_nil
-      @cart.cart_items(true).first.item.should == @some_object
-    end
+	let(:subject) do
+		subject = klass.new
+		subject.stub(:cart_items).and_return([])
+		subject
+	end
 
-    context "add more of an item already in the cart" do
-      it "increases the quantity of the item" do
-        @some_object = SomeClass.create
-        @cart.add(@some_object, 100)
-        @cart.add(@some_object, 100, 2)
+	let(:object) { stub }
 
-        @cart.cart_items.first.quantity.should == 3
-      end
-    end
-  end
+	let(:shopping_cart_item) do
+		stub(:quantity => 2, :save => true)
+	end
 
-  describe :subtotal do
-    it "has a subtotal" do
-      @cart.should respond_to(:subtotal)
-    end
+	describe :add do
+		context "item is not on cart" do
+			before do
+				subject.stub(:item_for).with(object)
+			end
 
-    context "the cart has items" do
-      before(:each) do
-        @cart.add(SomeClass.create, 199.99, 2)
-        @cart.add(SomeClass.create, 299.99)
-      end
+			it "creates a new shopping cart item" do
+				subject.cart_items.should_receive(:create).with(:item => object, :price => 19.99, :quantity => 3)
+				subject.add(object, 19.99, 3)
+			end
+		end
 
-      it "should return the sum of the item prices" do
-        @cart.subtotal.should == 699.97
-      end
-    end
+		context "item is already on cart" do
+			before do
+				subject.stub(:item_for).with(object).and_return(shopping_cart_item)
+			end
 
-    context "the cart has no item" do
-      it "should return 0" do
-        @cart.subtotal == 0
-      end
-    end
-  end
+			it "updates the quantity for the item" do
+				shopping_cart_item.should_receive(:quantity=).with(5)
+				subject.add(object, 19.99, 3)
+			end
+		end
+	end
 
-  describe :total do
-    it "has a total" do
-      @cart.should respond_to(:total)
-    end
+	describe :remove do
+		context "item is not on cart" do
+			before do
+				subject.stub(:item_for).with(object)
+			end
 
-    context "the cart has items" do
-      before(:each) do
-        @cart.add(SomeClass.create, 199.99, 2)
-        @cart.add(SomeClass.create, 299.99)
-      end
+			it "does nothing" do
+				subject.remove(object)
+			end
+		end
 
-      context "the cart has taxes"  do
-        before(:each) do
-          @cart.taxes = 12.99
-        end
+		context "item is on cart" do
+			before do
+				subject.stub(:item_for).with(object).and_return(shopping_cart_item)
+			end
 
-        context "the cart has shipping cost" do
-          before(:each) do
-            @cart.shipping_cost = 3.99
-          end
+			context "remove less items than those on cart" do
+				it "just updates the shopping cart item quantity" do
+					shopping_cart_item.should_receive(:quantity=).with(1)
+					subject.remove(object, 1)
+				end
+			end
 
-          it "should return the sum of the item prices, taxes and shipping cost" do
-            @cart.total.should == 716.95
-          end
-        end
+			context "remove more items than those on cart" do
+				it "removes the shopping cart item object completely" do
+					shopping_cart_item.should_receive(:delete)
+					subject.remove(object, 99)
+				end
+			end
+		end
+	end
 
-        context "the cart hasn't shipping cost" do
-          it "should return the sum of the item prices and taxes" do
-            @cart.total.should == 712.96
-          end
-        end
-      end
+	describe :subtotal do
+		context "cart has no items" do
+			before do
+				subject.stub(:cart_items).and_return([])
+			end
 
-      context "the cart hasn't taxes" do
-        context "the cart has shipping cost" do
-          before(:each) do
-            @cart.shipping_cost = 3.99
-          end
+			it "returns 0" do
+				subject.subtotal.should eq(0)
+			end
+		end
 
-          it "should return the sum of item prices and shipping cost" do
-            @cart.total.should == 703.96
-          end
-        end
+		context "cart has items" do
+			before do
+				items = [stub(:quantity => 2, :price => 33.99), stub(:quantity => 1, :price => 45.99)]
+				subject.stub(:cart_items).and_return(items)
+			end
 
-        context "the cart hasn't shipping cost" do
-          it "should return the sum of the item prices" do
-            @cart.total.should == 699.97
-          end
-        end
-      end
-    end
+			it "returns the sum of the price * quantity for all items" do
+				subject.subtotal.should eq(113.97)
+			end
+		end
+	end
 
-    context "the cart has no item" do
-      context "the cart has taxes"  do
-        before(:each) do
-          @cart.taxes = 12.99
-        end
+	describe :shipping_cost do
+		it "returns 0" do
+			subject.shipping_cost.should eq(0)
+		end
+	end
 
-        context "the cart has shipping cost" do
-          before(:each) do
-            @cart.shipping_cost = 3.99
-          end
+	describe :taxes do
+		context "subtotal is 100" do
+			before do
+				subject.stub(:subtotal).and_return(100)
+			end
 
-          it "should return the sum of the item prices, taxes and shipping cost" do
-            @cart.total.should == 16.98
-          end
-        end
+			it "returns 8.25" do
+				subject.taxes.should eq(8.25)
+			end
+		end
+	end
 
-        context "the cart hasn't shipping cost" do
-          it "should return the sum of the item prices and taxes" do
-            @cart.total.should == 12.99
-          end
-        end
-      end
+	describe :tax_pct do
+		it "returns 8.25" do
+			subject.tax_pct.should eq(8.25)
+		end
+	end
 
-      context "the cart hasn't taxes" do
-        context "the cart has shipping cost" do
-          before(:each) do
-            @cart.shipping_cost = 3.99
-          end
+	describe :total do
+		before do
+			subject.stub(:subtotal).and_return(10.99)
+			subject.stub(:taxes).and_return(13.99)
+			subject.stub(:shipping_cost).and_return(12.99)
+		end
 
-          it "should return the sum of item prices and shipping cost" do
-            @cart.total.should == 3.99
-          end
-        end
+		it "returns subtotal + taxes + shipping_cost" do
+			subject.total.should eq(37.97)
+		end
+	end
 
-        context "the cart hasn't shipping cost" do
-          it "should return 0" do
-            @cart.total == 0
-          end
-        end
-      end
-    end
-  end
+	describe :total_unique_items do
+		context "cart has no items" do
+			it "returns 0" do
+				subject.total_unique_items.should eq(0)
+			end
+		end
 
-  describe :remove do
-    context "the cart has items" do
-      before(:each) do
-        @some_object = SomeClass.create
-        @cart.add(@some_object, 199.99)
-        @cart.add(SomeClass.create, 299.99)
-      end
+		context "cart has some items" do
+			before do
+				items = [stub(:quantity => 2, :price => 33.99), stub(:quantity => 1, :price => 45.99)]
+				subject.stub(:cart_items).and_return(items)
+			end
 
-      it "removes the item from the cart" do
-        @cart.remove(@some_object)
-        @cart.cart_items.count.should == 1
-        @cart.item_for(@some_object).should be_nil
-      end
-    end
-
-    context "remove some items" do
-      before(:each) do
-        @some_object = SomeClass.create
-        @cart.add(@some_object, 199.99, 5)
-        @cart.add(SomeClass.create, 299.99)
-      end
-
-      it "removes 2 items of the specific product" do
-        @cart.remove(@some_object, 2)
-        @cart.item_for(@some_object).should_not be_nil
-        @cart.item_for(@some_object).quantity.should == 3
-      end
-    end
-
-    context "the object is not on the cart" do
-      before(:each) do
-        @some_object = SomeClass.create
-      end
-      it "does nothing" do
-        @cart.remove(@some_object)
-      end
-    end
-
-    describe :total_unique_items do
-      context "there are different items in the cart" do
-        before(:each) do
-          @cart.add(SomeClass.create, 100, 1)
-          @cart.add(SomeClass.create, 100, 2)
-          @cart.add(SomeClass.create, 100, 3)
-        end
-
-        it "returns the sum of all the item quantities" do
-          @cart.total_unique_items.should == 6
-        end
-      end
-
-      context "the cart has no items" do
-        it "returns 0" do
-          @cart.total_unique_items == 0
-        end
-      end
-    end
-  end
+			it "returns the sum of the quantities of all shopping cart items" do
+				subject.total_unique_items.should eq(3)
+			end
+		end
+	end
 end
-
