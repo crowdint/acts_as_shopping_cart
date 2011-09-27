@@ -157,7 +157,7 @@ Run rspec
 
 Run cucumber features
 
-    bundle exec cucumber
+    cucumber
 
 # About the Author
 
