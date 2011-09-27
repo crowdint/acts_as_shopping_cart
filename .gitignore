@@ -4,3 +4,4 @@ Gemfile.lock
 pkg/*
 .rvmrc
 coverage
+coverage.features
