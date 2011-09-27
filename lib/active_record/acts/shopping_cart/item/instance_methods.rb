@@ -17,11 +17,7 @@ module ActiveRecord
           #
           def subtotal_for(object)
             item = item_for(object)
-            if item
-              ("%.2f" % (item.quantity * item.price)).to_f
-            else
-              0.0
-            end
+            item ? item.subtotal : 0
           end
 
           #
@@ -37,10 +33,7 @@ module ActiveRecord
           #
           def update_quantity_for(object, new_quantity)
             item = item_for(object)
-            if item
-              item.quantity = new_quantity
-              item.save
-            end
+            item.update_quantity(new_quantity) if item
           end
 
           #
@@ -56,10 +49,7 @@ module ActiveRecord
           #
           def update_price_for(object, new_price)
             item = item_for(object)
-            if item
-              item.price = new_price
-              item.save
-            end
+            item.update_price(new_price) if item
           end
         end
       end
