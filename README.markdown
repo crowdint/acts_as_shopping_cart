@@ -94,6 +94,48 @@ You can find out about the total using the _total_ method:
 
     @cart.total # => 99.99
 
+### Taxes
+
+Taxes by default are calculated by multiplying subtotal times 8.25
+
+If you want to change the way taxes are calculated, override the taxes
+method on your class that acts_as_shopping_cart.
+
+Example:
+
+    class ShoppingCart < ActiveRecord::Base
+      acts_as_shopping_cart
+
+      def taxes
+        (subtotal - 10) * 8.3
+      end
+    end
+
+If you just want to update the percentage, just override the tax_pct
+method.
+
+    class ShoppingCart < ActiveRecord::Base
+      acts_as_shopping_cart
+
+      def tax_pct
+        3.5
+      end
+    end
+
+### Shipping Cost
+
+Shipping cost will be added to the total. By default its calculated as
+0, but you can just override the shipping_cost method on your cart
+class depending on your needs.
+
+    class ShoppingCart < ActiveRecord::Base
+      acts_as_shopping_cart
+
+      def shipping_cost
+        5 # defines a flat $5 rate
+      end
+    end
+
 ### Total unique items
 
 You can find out how many unique items you have on your cart using the _total_unique_items_ method.
