@@ -23,7 +23,7 @@ module ActiveRecord
           def remove(object, quantity = 1)
             if cart_item = item_for(object)
               if cart_item.quantity <= quantity
-								cart_item.delete
+                cart_item.delete
               else
                 cart_item.quantity = (cart_item.quantity - quantity)
                 cart_item.save
@@ -35,20 +35,20 @@ module ActiveRecord
           # Returns the subtotal by summing the price times quantity for all the items in the cart
           #
           def subtotal
-						("%.2f" % cart_items.inject(0) { |sum, item| sum += (item.price * item.quantity) }).to_f
+            ("%.2f" % cart_items.inject(0) { |sum, item| sum += (item.price * item.quantity) }).to_f
           end
 
-					def shipping_cost
-						0
-					end
+          def shipping_cost
+            0
+          end
 
-					def taxes
-						subtotal * self.tax_pct * 0.01
-					end
+          def taxes
+            subtotal * self.tax_pct * 0.01
+          end
 
-					def tax_pct
-						8.25
-					end
+          def tax_pct
+            8.25
+          end
 
           #
           # Returns the total by summing the subtotal, taxes and shipping_cost

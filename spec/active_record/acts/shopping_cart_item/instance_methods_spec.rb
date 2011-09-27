@@ -1,46 +1,38 @@
 require File.expand_path(File.dirname(__FILE__) + '../../../../spec_helper')
 
-describe "ShoppingCart" do
-  before(:each) do
-    @cart = SomeCart.create
-    @cart.add(SomeClass.create, 100, 3)
-    @cart.add(SomeClass.create, 200, 6)
-    @cart.add(SomeClass.create, 300, 9)
+describe ActiveRecord::Acts::ShoppingCartItem::InstanceMethods do
+  let(:klass) do
+    klass = Class.new
+    klass.send :include, ActiveRecord::Acts::ShoppingCartItem::InstanceMethods
+    klass
+  end
+
+  let(:subject) do
+    subject = klass.new
+    subject.stub(:save => true)
+    subject
   end
 
   describe :subtotal do
-    it "returns the quantity times the price for the specicfied object" do
-      @cart.cart_items[0].subtotal.should == (100 * 3)
-      @cart.cart_items[1].subtotal.should == (200 * 6)
-      @cart.cart_items[2].subtotal.should == (300 * 9)
+    it "returns the quantity * price" do
+      subject.stub(:quantity => 2, :price => 33.99)
+      subject.subtotal.should eq(67.98)
     end
   end
 
   describe :update_quantity do
-    before(:each) do
-      @cart.cart_items[0].update_quantity(6)
-      @cart.cart_items[1].update_quantity(9)
-      @cart.cart_items[2].update_quantity(12)
+    it "updates the item quantity" do
+      subject.should_receive(:quantity=).with(5)
+      subject.should_receive(:save)
+      subject.update_quantity(5)
     end
-    
-    it "returns the quantity of the specified object" do
-      @cart.cart_items[0].quantity.should == (6)
-      @cart.cart_items[1].quantity.should == (9)
-      @cart.cart_items[2].quantity.should == (12)
-    end
-  end  
-  
+  end
+
   describe :update_price do
-    before(:each) do
-      @cart.cart_items[0].update_price(50)
-      @cart.cart_items[1].update_price(100)
-      @cart.cart_items[2].update_price(150)
-    end
-    
-    it "returns the quantity of the specified object" do
-      @cart.cart_items[0].price.should == (50)
-      @cart.cart_items[1].price.should == (100)
-      @cart.cart_items[2].price.should == (150)
+    it "updates the item price" do
+      subject.should_receive(:price=).with(55.99)
+      subject.should_receive(:save)
+      subject.update_price(55.99)
     end
   end
 end
