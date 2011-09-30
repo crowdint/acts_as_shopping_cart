@@ -1,6 +1,6 @@
 # acts_as_shopping_cart
 
-A simple shopping cart implementation. Still on Alpha, use it at your own risk.
+A simple shopping cart implementation.
 
 ## Install
 
