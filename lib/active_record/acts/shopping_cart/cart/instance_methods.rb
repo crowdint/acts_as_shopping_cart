@@ -10,7 +10,7 @@ module ActiveRecord
             cart_item = item_for(object)
 
             unless cart_item
-              cart_items.create(:item => object, :price => price, :quantity => quantity)
+              shopping_cart_items.create(:item => object, :price => price, :quantity => quantity)
             else
               cart_item.quantity = (cart_item.quantity + quantity)
               cart_item.save
@@ -35,7 +35,7 @@ module ActiveRecord
           # Returns the subtotal by summing the price times quantity for all the items in the cart
           #
           def subtotal
-            ("%.2f" % cart_items.inject(0) { |sum, item| sum += (item.price * item.quantity) }).to_f
+            ("%.2f" % shopping_cart_items.inject(0) { |sum, item| sum += (item.price * item.quantity) }).to_f
           end
 
           def shipping_cost
@@ -61,7 +61,12 @@ module ActiveRecord
           # Return the number of unique items in the cart
           #
           def total_unique_items
-            cart_items.inject(0) { |sum, item| sum += item.quantity }
+            shopping_cart_items.inject(0) { |sum, item| sum += item.quantity }
+          end
+
+          def cart_items
+            warn "ShoppingCart#cart_items WILL BE DEPRECATED IN LATER VERSIONS OF acts_as_shopping_cart, please use ShoppingCart#shopping_cart_items instead"
+            self.shopping_cart_items
           end
         end
       end

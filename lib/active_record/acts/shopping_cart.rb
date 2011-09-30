@@ -19,7 +19,7 @@ module ActiveRecord
         def acts_as_shopping_cart_using(item_class)
           self.send :include, ActiveRecord::Acts::ShoppingCart::Cart::InstanceMethods
           self.send :include, ActiveRecord::Acts::ShoppingCart::Item::InstanceMethods
-          has_many :cart_items, :class_name => item_class.to_s.classify, :as => :owner
+          has_many :shopping_cart_items, :class_name => item_class.to_s.classify, :as => :owner
         end
 
         #

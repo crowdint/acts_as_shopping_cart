@@ -9,7 +9,7 @@ describe ActiveRecord::Acts::ShoppingCart::Cart::InstanceMethods do
 
   let(:subject) do
     subject = klass.new
-    subject.stub(:cart_items).and_return([])
+    subject.stub(:shopping_cart_items).and_return([])
     subject
   end
 
@@ -26,7 +26,7 @@ describe ActiveRecord::Acts::ShoppingCart::Cart::InstanceMethods do
       end
 
       it "creates a new shopping cart item" do
-        subject.cart_items.should_receive(:create).with(:item => object, :price => 19.99, :quantity => 3)
+        subject.shopping_cart_items.should_receive(:create).with(:item => object, :price => 19.99, :quantity => 3)
         subject.add(object, 19.99, 3)
       end
     end
@@ -78,7 +78,7 @@ describe ActiveRecord::Acts::ShoppingCart::Cart::InstanceMethods do
   describe :subtotal do
     context "cart has no items" do
       before do
-        subject.stub(:cart_items).and_return([])
+        subject.stub(:shopping_cart_items).and_return([])
       end
 
       it "returns 0" do
@@ -89,7 +89,7 @@ describe ActiveRecord::Acts::ShoppingCart::Cart::InstanceMethods do
     context "cart has items" do
       before do
         items = [stub(:quantity => 2, :price => 33.99), stub(:quantity => 1, :price => 45.99)]
-        subject.stub(:cart_items).and_return(items)
+        subject.stub(:shopping_cart_items).and_return(items)
       end
 
       it "returns the sum of the price * quantity for all items" do
@@ -144,7 +144,7 @@ describe ActiveRecord::Acts::ShoppingCart::Cart::InstanceMethods do
     context "cart has some items" do
       before do
         items = [stub(:quantity => 2, :price => 33.99), stub(:quantity => 1, :price => 45.99)]
-        subject.stub(:cart_items).and_return(items)
+        subject.stub(:shopping_cart_items).and_return(items)
       end
 
       it "returns the sum of the quantities of all shopping cart items" do

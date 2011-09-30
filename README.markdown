@@ -54,6 +54,11 @@ In order for this to work, the Shopping Cart Item model should have the followin
       t.shopping_cart_item_fields # Creates the cart items fields
     end
 
+### Shopping Cart Items
+
+Your ShoppingCart class will have a _shopping_cart_items_ association
+that returns all the ShoppingCartItem objects in your cart.
+
 ### Add Items
 
 To add an item to the cart you use the add method. You have to send the object and the price of the object as parameters.
