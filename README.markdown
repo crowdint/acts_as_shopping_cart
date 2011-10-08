@@ -88,6 +88,12 @@ To remove an item from the cart you can use the remove method. You just have to 
 
     @cart.remove(@product, 1)
 
+### Empty the cart
+
+To remove all the items in the cart at once, just use the _clear_ method
+
+    @cart.clear
+
 ### Total
 
 You can find out about the total using the _total_ method:
