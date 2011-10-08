@@ -28,6 +28,10 @@ When /^I remove (\d+) "([^"]*)" unit(s?) from cart$/ do |quantity, product_name,
   @cart.remove(product, quantity.to_i)
 end
 
+When /^I empty the cart$/ do
+  @cart.clear
+end
+
 Then /^cart should be empty$/ do
   @cart.reload
   @cart.should be_empty

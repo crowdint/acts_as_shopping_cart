@@ -44,3 +44,9 @@ Feature: Shopping Cart
     When I update the "Apple" price to "10.99"
     Then the price for "Apple" on the cart should be "10.99"
 
+  Scenario: Empty the shopping cart
+    Given I add 99 "Apple" products to cart with price "99.99"
+    When I empty the cart
+    Then cart should be empty
+    And the total for the cart should be "0"
+

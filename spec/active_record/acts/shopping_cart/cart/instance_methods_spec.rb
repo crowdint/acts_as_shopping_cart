@@ -43,6 +43,17 @@ describe ActiveRecord::Acts::ShoppingCart::Cart::InstanceMethods do
     end
   end
 
+  describe :clear do
+    before do
+      subject.shopping_cart_items.should_receive(:clear)
+    end
+
+    it "clears all the items in the cart" do
+      subject.clear
+      subject.empty?.should be_true
+    end
+  end
+
   describe "empty?" do
     context "cart has items" do
       before do

@@ -17,6 +17,13 @@ module ActiveRecord
             end
           end
 
+          #
+          # Deletes all shopping_cart_items in the shopping_cart
+          #
+          def clear
+            shopping_cart_items.clear
+          end
+
           def empty?
             shopping_cart_items.empty?
           end
