@@ -17,6 +17,10 @@ module ActiveRecord
             end
           end
 
+          def empty?
+            shopping_cart_items.empty?
+          end
+
           #
           # Remove an item from the cart
           #

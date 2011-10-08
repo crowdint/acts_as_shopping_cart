@@ -43,6 +43,24 @@ describe ActiveRecord::Acts::ShoppingCart::Cart::InstanceMethods do
     end
   end
 
+  describe "empty?" do
+    context "cart has items" do
+      before do
+        subject.shopping_cart_items << mock
+      end
+
+      it "returns false" do
+        subject.empty?.should be_false
+      end
+    end
+
+    context "cart is empty" do
+      it "returns true" do
+        subject.empty?.should be_true
+      end
+    end
+  end
+
   describe :remove do
     context "item is not on cart" do
       before do

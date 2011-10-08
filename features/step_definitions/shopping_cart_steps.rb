@@ -30,7 +30,7 @@ end
 
 Then /^cart should be empty$/ do
   @cart.reload
-  @cart.shopping_cart_items.should be_empty
+  @cart.should be_empty
 end
 
 Given /^I add (\d+) "([^"]*)" products to cart with price "([^"]*)"$/ do |quantity, product_name, price|
