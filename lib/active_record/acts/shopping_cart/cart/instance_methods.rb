@@ -24,6 +24,9 @@ module ActiveRecord
             shopping_cart_items.clear
           end
 
+          #
+          # Returns true when the cart is empty
+          #
           def empty?
             shopping_cart_items.empty?
           end
