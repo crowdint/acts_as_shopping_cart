@@ -50,3 +50,8 @@ Feature: Shopping Cart
     Then cart should be empty
     And the total for the cart should be "0"
 
+  Scenario: Item should hold a relation to cart
+    When I add product "Apple" to cart with price "99.99"
+    Then shopping cart item "Apple" should belong to cart
+
+

@@ -71,3 +71,10 @@ When /^I update the "([^"]*)" price to "([^"]*)"$/ do |product_name, price|
   product = Product.find_by_name(product_name)
   @cart.update_price_for(product, price.to_f)
 end
+
+Then /^shopping cart item "([^"]*)" should belong to cart$/ do |arg1|
+  @cart.reload
+  shopping_cart_item = ShoppingCartItem.last
+  shopping_cart_item.owner.should == @cart
+end
+
