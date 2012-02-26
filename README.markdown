@@ -2,6 +2,8 @@
 
 A simple shopping cart implementation.
 
+[![Build Status](https://secure.travis-ci.org/crowdint/acts_as_shopping_cart.png?branch=master)](http://travis-ci.org/crowdint/acts_as_shopping_cart)
+
 ## Install
 
 ### Rails 3
