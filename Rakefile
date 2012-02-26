@@ -7,7 +7,6 @@ end
 
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new do |t|
-  t.skip_bundler  = true
   t.fail_on_error = true
 end
 
