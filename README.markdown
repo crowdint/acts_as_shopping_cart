@@ -176,8 +176,10 @@ Both:
 
     rake
 
-# About the Author
+# About the author
 
-[Crowd Interactive](http://www.crowdint.com) is an American web design and development company that happens to work in Colima, Mexico.
-We specialize in building and growing online retail stores. We don’t work with everyone – just companies we believe in. Call us today to see if there’s a fit.
-Find more info [here](http://www.crowdint.com)!
+[Crowd Interactive](http://www.crowdint.com) is a leading Ruby and Rails
+consultancy firm based in Mexico currently doing business with startups in the
+United States. We specialize in building and growing Rails applications, by increasing
+your IT crew onsite or offsite. We pick our projects carefully, as we only work
+with companies we believe in.
