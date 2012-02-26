@@ -10,7 +10,7 @@ A simple shopping cart implementation.
 
 Include it in your Gemfile
 
-    gem 'acts_as_shopping_cart', :git => "git@github.com:crowdint/acts_as_shopping_cart.git"
+    gem 'acts_as_shopping_cart', '~> 0.1.4'
 
 And run bundler
 
