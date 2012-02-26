@@ -10,6 +10,11 @@ Feature: Shopping Cart
     And the total for the cart should be "108.24"
     And the total unique items on the cart should be "1"
 
+  Scenario: Cart Totals when cart is empty
+    Then the subtotal for the cart should be "0"
+    And the total for the cart should be "0"
+    And the total unique items on the cart should be "0"
+
   Scenario: Add a product to cart twice
     When I add product "Apple" to cart with price "99.99"
     And I add product "Apple" to cart with price "99.99"
