@@ -17,6 +17,11 @@ When /^I add product "([^"]*)" to cart with price "([^"]*)"$/ do |product_name, 
   @cart.add(product, price)
 end
 
+When /^I non-cumulatively add product "([^"]*)" to cart with price "([^"]*)"$/ do |product_name, price|
+  product = Product.find_by_name(product_name)
+  @cart.add(product, price, 1, false)
+end
+
 Then /^the total unique items on the cart should be "([^"]*)"$/ do |total|
   @cart.reload
   @cart.total_unique_items.should eq(total.to_i)

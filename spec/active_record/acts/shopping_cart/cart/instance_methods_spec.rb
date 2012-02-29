@@ -31,6 +31,17 @@ describe ActiveRecord::Acts::ShoppingCart::Cart::InstanceMethods do
       end
     end
 
+    context "item is not in cart" do
+      before do
+        subject.stub(:item_for).with(object)
+      end
+
+      it "creates a new shopping cart item non-cumulatively" do
+        subject.shopping_cart_items.should_receive(:create).with(:item => object, :price => 19.99, :quantity => 3)
+        subject.add(object, 19.99, 3, false)
+      end
+    end
+
     context "item is already on cart" do
       before do
         subject.stub(:item_for).with(object).and_return(shopping_cart_item)
@@ -39,6 +50,17 @@ describe ActiveRecord::Acts::ShoppingCart::Cart::InstanceMethods do
       it "updates the quantity for the item" do
         shopping_cart_item.should_receive(:quantity=).with(5)
         subject.add(object, 19.99, 3)
+      end
+    end
+
+    context "item is already in cart" do
+      before do
+        subject.stub(:item_for).with(object).and_return(shopping_cart_item)
+      end
+
+      it "updates the quantity for the item non-cumulatively" do
+        shopping_cart_item.should_receive(:quantity=).with(3) # not 5
+        subject.add(object, 19.99, 3, false)
       end
     end
   end
