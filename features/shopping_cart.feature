@@ -22,6 +22,14 @@ Feature: Shopping Cart
     Then the total for the cart should be "216.48"
     And the total unique items on the cart should be "2"
 
+  Scenario: Add a product to cart twice non-cumulatively
+    When I add product "Apple" to cart with price "99.99"
+    And I add product "Apple" to cart with price "99.99"
+    And I non-cumulatively add product "Apple" to cart with price "99.99"
+    Then the subtotal for the cart should be "99.99"
+    Then the total for the cart should be "108.24"
+    And the total unique items on the cart should be "1"
+
   Scenario: Remove products from cart
     Given I add 3 "Apple" products to cart with price "99.99"
     When I remove 1 "Apple" unit from cart
