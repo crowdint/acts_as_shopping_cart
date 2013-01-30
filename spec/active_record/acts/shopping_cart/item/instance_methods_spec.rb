@@ -21,7 +21,7 @@ describe ActiveRecord::Acts::ShoppingCart::Item::InstanceMethods do
   describe :item_for do
     context "no cart item exists for the object" do
       before do
-        shopping_cart_items.should_receive(:where).with(:item_id => object.id).and_return([])
+        shopping_cart_items.should_receive(:where).with(:item_id => object.id, :item_type => object.class.name).and_return([])
       end
 
       it "returns the shopping cart item object for the requested object" do
@@ -31,7 +31,7 @@ describe ActiveRecord::Acts::ShoppingCart::Item::InstanceMethods do
 
     context "a cart item exists for the object" do
       before do
-        shopping_cart_items.should_receive(:where).with(:item_id => object.id).and_return([ item ])
+        shopping_cart_items.should_receive(:where).with(:item_id => object.id, :item_type => object.class.name).and_return([ item ])
       end
 
       it "returns that item" do

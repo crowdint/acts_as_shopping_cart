@@ -8,7 +8,7 @@ module ActiveRecord
           # Returns the cart item for the specified object
           #
           def item_for(object)
-            shopping_cart_items.where(:item_id => object.id).first
+            shopping_cart_items.where(:item_id => object.id, :item_type => object.class.name).first
           end
 
           #
