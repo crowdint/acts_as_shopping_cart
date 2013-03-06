@@ -1,10 +1,10 @@
-require File.expand_path(File.dirname(__FILE__) + '../../../../../spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '../../../../spec_helper')
 # require 'spec_helper'
 
-describe ActiveRecord::Acts::ShoppingCart::Cart::InstanceMethods do
+describe ActiveRecord::Acts::ShoppingCart::Collection do
   let(:klass) do
     klass = Class.new
-    klass.send(:include, ActiveRecord::Acts::ShoppingCart::Cart::InstanceMethods)
+    klass.send(:include, ActiveRecord::Acts::ShoppingCart::Collection)
   end
 
   let(:subject) do

@@ -6,9 +6,7 @@ require 'acts_as_shopping_cart/schema'
 module ActiveRecord
   module Acts
     module ShoppingCart
-      module Cart
-        autoload :InstanceMethods, 'active_record/acts/shopping_cart/cart/instance_methods'
-      end
+      autoload :Collection, 'active_record/acts/shopping_cart/collection'
 
       module Item
         autoload :InstanceMethods, 'active_record/acts/shopping_cart/item/instance_methods'
