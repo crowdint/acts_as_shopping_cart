@@ -12,7 +12,7 @@ You can find an example application [here](https://github.com/crowdint/acts_as_s
 
 Include it in your Gemfile
 
-    gem 'acts_as_shopping_cart', '~> 0.1.4'
+    gem 'acts_as_shopping_cart', '~> 0.1.6'
 
 And run bundler
 
