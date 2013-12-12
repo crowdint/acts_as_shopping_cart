@@ -10,11 +10,24 @@ You can find an example application [here](https://github.com/crowdint/acts_as_s
 
 ### Rails 3
 
+**As of Version 0.2.0 Rails 3 is no longer supported. Please use the 0-1-x branch
+if you still need to implement this gem in a Rails 3 app**
+
 Include it in your Gemfile
 
-    gem 'acts_as_shopping_cart', '~> 0.1.6'
+    gem 'acts_as_shopping_cart', :github => 'crowdint/acts_as_shopping_cart', :branch => '0-1-x'
 
 And run bundler
+
+    bundle install
+
+### Rails 4
+
+Just include it in your Gemfile as:
+
+    gem 'acts_as_shopping_cart', '~> 0.2.0'
+
+And run bundle install
 
     bundle install
 
