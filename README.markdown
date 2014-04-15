@@ -25,7 +25,7 @@ And run bundler
 
 Just include it in your Gemfile as:
 
-    gem 'acts_as_shopping_cart', '~> 0.2.0'
+    gem 'acts_as_shopping_cart', '~> 0.2.1'
 
 And run bundle install
 
