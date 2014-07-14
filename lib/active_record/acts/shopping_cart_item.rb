@@ -20,6 +20,7 @@ module ActiveRecord
           self.send :include, ActiveRecord::Acts::ShoppingCartItem::InstanceMethods
           belongs_to :owner, :polymorphic => true
           belongs_to :item, :polymorphic => true
+          monetize :price_cents
         end
 
         #
