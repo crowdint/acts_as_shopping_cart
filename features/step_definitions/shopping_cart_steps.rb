@@ -4,12 +4,12 @@ end
 
 Then /^the total for the cart should be "([^"]*)"$/ do |total|
   @cart.reload
-  @cart.total.should eq(total.to_f)
+  @cart.total.should eq(Money.new(total.to_f * 100))
 end
 
 Then /^the subtotal for the cart should be "([^"]*)"$/ do |subtotal|
   @cart.reload
-  @cart.subtotal.should eq(subtotal.to_f)
+  @cart.subtotal.should eq(Money.new(subtotal.to_f * 100))
 end
 
 When /^I add product "([^"]*)" to cart with price "([^"]*)"$/ do |product_name, price|
