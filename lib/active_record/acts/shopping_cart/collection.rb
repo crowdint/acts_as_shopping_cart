@@ -9,7 +9,7 @@ module ActiveRecord
           cart_item = item_for(object)
 
           unless cart_item
-            shopping_cart_items.create(:item => object, :price => price, :quantity => quantity)
+            cart_item = shopping_cart_items.create(:item => object, :price => price, :quantity => quantity)
           else
             cumulative = cumulative == true ? cart_item.quantity : 0
             cart_item.quantity = (cumulative + quantity)
