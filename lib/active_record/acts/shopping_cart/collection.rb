@@ -15,6 +15,8 @@ module ActiveRecord
             cart_item.quantity = (cumulative + quantity)
             cart_item.save
           end
+
+          cart_item
         end
 
         #
