@@ -26,8 +26,12 @@ describe ActiveRecord::Acts::ShoppingCart::Collection do
       end
 
       it "creates a new shopping cart item" do
-        subject.shopping_cart_items.should_receive(:create).with(:item => object, :price => 19.99, :quantity => 3)
-        subject.add(object, 19.99, 3)
+        created_object = mock
+        subject.shopping_cart_items.should_receive(:create).
+            with(:item => object, :price => 19.99, :quantity => 3).
+            and_return(created_object)
+        item = subject.add(object, 19.99, 3)
+        item.should be created_object
       end
     end
 
@@ -49,7 +53,8 @@ describe ActiveRecord::Acts::ShoppingCart::Collection do
 
       it "updates the quantity for the item" do
         shopping_cart_item.should_receive(:quantity=).with(5)
-        subject.add(object, 19.99, 3)
+        item = subject.add(object, 19.99, 3)
+        item.should be shopping_cart_item
       end
     end
 
