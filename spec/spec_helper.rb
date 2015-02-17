@@ -5,11 +5,13 @@ require 'rubygems'
 require 'bundler/setup'
 
 require 'simplecov'
+require 'rails'
 require 'active_record'
 require 'money-rails'
 
-MoneyRails::Hooks.init
+ActiveRecord::Base.establish_connection adapter: "sqlite3", database: ":memory:"
 
+MoneyRails::Hooks.init
 require 'acts_as_shopping_cart'
 
 SimpleCov.start
