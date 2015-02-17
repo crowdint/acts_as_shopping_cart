@@ -1,5 +1,6 @@
-require 'money-rails'
 require 'acts_as_shopping_cart/version'
+require 'rails'
+require 'money-rails'
 require 'active_record/acts/shopping_cart'
 require 'active_record/acts/shopping_cart_item'
 require 'acts_as_shopping_cart/schema'

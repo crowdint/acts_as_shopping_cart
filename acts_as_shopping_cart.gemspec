@@ -18,8 +18,8 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_dependency 'activerecord', '~> 4'
-  s.add_dependency 'money-rails', '~> 0.12.0'
+  s.add_dependency 'rails', '~> 4'
+  s.add_dependency 'money-rails', '~> 1.3'
 
   s.add_development_dependency "cucumber", '~> 1.3.14'
   s.add_development_dependency "database_cleaner"
