@@ -52,7 +52,7 @@ For the items:
       acts_as_shopping_cart_item_for :cart
     end
 
-or, if you want to use convention over configuration, make sure your models are called *ShoppingCart* and *ShoppingCartItems*,
+or, if you want to use convention over configuration, make sure your models are called *ShoppingCart* and *ShoppingCartItem*,
 then just use the shortcuts:
 
     class ShoppingCart < ActiveRecord::Base
