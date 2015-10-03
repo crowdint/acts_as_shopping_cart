@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '../../../../spec_helper')
+require File.expand_path(File.dirname(__FILE__) + "../../../../spec_helper")
 
 describe ActiveRecord::Acts::ShoppingCart::Item do
   let(:klass) do
@@ -15,13 +15,13 @@ describe ActiveRecord::Acts::ShoppingCart::Item do
     subject
   end
 
-  let(:object) { stub(:id => 1) }
-  let(:item)   { stub(:subtotal => 47.98, :price => 23.99, :quantity => 2, :save => true)}
+  let(:object) { stub(id: 1) }
+  let(:item)   { stub(subtotal: 47.98, price: 23.99, quantity: 2, save: true)}
 
   describe :item_for do
     context "no cart item exists for the object" do
       before do
-        shopping_cart_items.should_receive(:where).with(:item => object).and_return([])
+        shopping_cart_items.should_receive(:where).with(item: object).and_return([])
       end
 
       it "returns the shopping cart item object for the requested object" do
@@ -31,7 +31,7 @@ describe ActiveRecord::Acts::ShoppingCart::Item do
 
     context "a cart item exists for the object" do
       before do
-        shopping_cart_items.should_receive(:where).with(:item => object).and_return([ item ])
+        shopping_cart_items.should_receive(:where).with(item: object).and_return([item])
       end
 
       it "returns that item" do

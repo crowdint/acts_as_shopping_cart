@@ -27,7 +27,7 @@ Then /^the total unique items on the cart should be "([^"]*)"$/ do |total|
   @cart.total_unique_items.should eq(total.to_i)
 end
 
-When /^I remove (\d+) "([^"]*)" unit(s?) from cart$/ do |quantity, product_name, plural|
+When /^I remove (\d+) "([^"]*)" unit(s?) from cart$/ do |quantity, product_name, _|
   @cart.reload
   product = Product.find_by_name(product_name)
   @cart.remove(product, quantity.to_i)
@@ -77,9 +77,8 @@ When /^I update the "([^"]*)" price to "([^"]*)"$/ do |product_name, price|
   @cart.update_price_for(product, price.to_f)
 end
 
-Then /^shopping cart item "([^"]*)" should belong to cart$/ do |arg1|
+Then /^shopping cart item "([^"]*)" should belong to cart$/ do |_|
   @cart.reload
   shopping_cart_item = ShoppingCartItem.last
   shopping_cart_item.owner.should == @cart
 end
-

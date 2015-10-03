@@ -1,4 +1,4 @@
-require 'active_record/connection_adapters/abstract/schema_definitions'
+require "active_record/connection_adapters/abstract/schema_definitions"
 
 module ActsAsShoppingCart
   module Schema

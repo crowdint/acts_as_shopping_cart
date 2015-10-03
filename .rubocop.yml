@@ -1,0 +1,11 @@
+AllCops:
+  RunRailsCops: true
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  StyleGuideCopsOnly: true
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Metrics/LineLength:
+  Max: 110
