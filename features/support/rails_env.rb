@@ -1,7 +1,7 @@
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
-#ActiveRecord::Base.logger = Logger.new(STDOUT)
+ActiveRecord::Base.establish_connection(adapter: "sqlite3", database: ":memory:")
+# ActiveRecord::Base.logger = Logger.new(STDOUT)
 
-ActiveRecord::Schema.define(:version => 1) do
+ActiveRecord::Schema.define(version: 1) do
   create_table :shopping_carts
   create_table :shopping_cart_items do |t|
     t.shopping_cart_item_fields
